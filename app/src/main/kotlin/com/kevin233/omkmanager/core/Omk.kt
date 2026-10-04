@@ -3,6 +3,7 @@ package com.kevin233.omkmanager.core
 import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
+import java.util.Base64
 
 /**
  * OhMyKeymint helper CLI 客户端。
