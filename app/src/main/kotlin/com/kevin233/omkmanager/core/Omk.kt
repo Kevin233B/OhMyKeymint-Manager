@@ -228,17 +228,10 @@ object Omk {
 
     suspend fun installKeybox(bytes: ByteArray) {
         if (bytes.size > KEYBOX_MAX_BYTES) throw Su.SuException("密钥箱文件超过 64KB 上限")
-        val content = try {
-            Charsets.UTF_8.newDecoder()
-                .onMalformedInput(java.nio.charset.CodingErrorAction.REPORT)
-                .onUnmappableCharacter(java.nio.charset.CodingErrorAction.REPORT)
-                .decode(java.nio.ByteBuffer.wrap(bytes)).toString()
-        } catch (_: Exception) {
-            throw Su.SuException("密钥箱文件不是有效的 UTF-8 文本")
-        }
-        val args = mutableListOf<String>()
-        args.add("--webui-install-keybox")
-        content.chunked(KEYBOX_CHUNK).forEach { args.add(it) }
+        // 与 WebUI 一致：整个文件字节 base64 编码后，再按 49152 字符分块传参，helper 侧拼接解码校验
+        val b64 = Base64.getEncoder().encodeToString(bytes)
+        val args = mutableListOf("--webui-install-keybox")
+        b64.chunked(KEYBOX_CHUNK).forEach { args.add(it) }
         runKeymint(*args.toTypedArray(), maxOut = 256)
         recordActivity("keybox_changed", "")
     }
