@@ -33,7 +33,7 @@ fun PifScreen(toast: (String) -> Unit) {
     var selectedIdx by remember { mutableIntStateOf(0) }
 
     var attempt by remember { mutableStateOf(0) }
-    val state = produceState<Pair<Result<Omk.PifState>?, Result<List<Omk.PifDevice>>?>?>(null, attempt) {
+    val state = produceState<Pair<Result<Omk.PifState>, Result<List<Omk.PifDevice>>>?>(null, attempt) {
         value = runCatching { Omk.getPifFingerprintState() } to
             runCatching { Omk.listPifDevices() }
     }
