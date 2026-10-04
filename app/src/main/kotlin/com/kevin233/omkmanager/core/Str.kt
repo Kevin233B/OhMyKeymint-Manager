@@ -358,12 +358,12 @@ object Prefs {
         lang = sp!!.getString("lang", null)?.let { runCatching { Lang.valueOf(it) }.getOrNull() } ?: Lang.SYSTEM
     }
 
-    fun setTheme(t: Theme) {
+    fun updateTheme(t: Theme) {
         theme = t
         sp?.edit()?.putString("theme", t.name)?.apply()
     }
 
-    fun setLang(l: Lang) {
+    fun updateLang(l: Lang) {
         lang = l
         sp?.edit()?.putString("lang", l.name)?.apply()
     }

@@ -40,7 +40,7 @@ fun SettingsScreen() {
                     selectedIndex = themeIdx,
                     onSelectedIndexChange = { idx ->
                         themeIdx = idx
-                        Prefs.setTheme(Prefs.Theme.entries[idx])
+                        Prefs.updateTheme(Prefs.Theme.entries[idx])
                     },
                 )
             }
@@ -60,7 +60,7 @@ fun SettingsScreen() {
                     selectedIndex = langIdx,
                     onSelectedIndexChange = { idx ->
                         langIdx = idx
-                        Prefs.setLang(Prefs.Lang.entries[idx])
+                        Prefs.updateLang(Prefs.Lang.entries[idx])
                     },
                 )
             }
